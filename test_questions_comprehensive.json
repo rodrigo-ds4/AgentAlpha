@@ -1,0 +1,74 @@
+[
+  {
+    "category": "basic_functionality",
+    "question": "What is AgentAlpha?",
+    "ground_truth": "AgentAlpha is a minimal RAG (Retrieval-Augmented Generation) agent with multi-LLM support, featuring a dual memory system (buffer + summary), document ingestion capabilities for PDF and TXT files, ChromaDB vector storage, and both CLI and API interfaces. It supports Ollama, OpenAI, and DeepSeek as LLM providers.",
+    "difficulty": "easy"
+  },
+  {
+    "category": "technical_architecture", 
+    "question": "How does the dual memory system work in AgentAlpha?",
+    "ground_truth": "AgentAlpha uses ConversationSummaryBufferMemory from LangChain which automatically manages two types of memory: a buffer that stores recent messages in full detail up to a token limit (default 2000 tokens), and a summary component that compresses older conversations using the LLM to maintain long-term context without losing important information.",
+    "difficulty": "medium"
+  },
+  {
+    "category": "llm_providers",
+    "question": "Which LLM providers does AgentAlpha support and how do you configure them?",
+    "ground_truth": "AgentAlpha supports three LLM providers: 1) Ollama (local deployment, configured with ollama_url and ollama_model in config.json), 2) OpenAI (requires OPENAI_API_KEY environment variable, configured with openai_model), and 3) DeepSeek (requires DEEPSEEK_API_KEY, configured with deepseek_model and deepseek_url). The active provider is set in config.json under llm.provider.",
+    "difficulty": "medium"
+  },
+  {
+    "category": "document_processing",
+    "question": "What document formats can AgentAlpha process and how does the RAG system work?",
+    "ground_truth": "AgentAlpha can process PDF and TXT documents. The RAG system works by: 1) Loading documents using PyPDFLoader for PDFs or simple file reading for TXT, 2) Splitting text into chunks using RecursiveCharacterTextSplitter (default 1000 tokens, 200 overlap), 3) Generating embeddings using SentenceTransformers (all-MiniLM-L6-v2), 4) Storing in ChromaDB vector database, 5) Performing semantic search with similarity threshold (default 0.7) when answering queries.",
+    "difficulty": "hard"
+  },
+  {
+    "category": "deployment",
+    "question": "How do you deploy AgentAlpha using Docker?",
+    "ground_truth": "Deploy AgentAlpha using Docker with 'docker-compose up' command. The docker-compose.yml includes the main agent service exposed on port 8000, optional Ollama service on port 11434, volume mounts for data persistence (./data:/app/data), and environment variable configuration for API keys. For production, set API keys in .env file or environment variables.",
+    "difficulty": "easy"
+  },
+  {
+    "category": "tools_system",
+    "question": "What tools are available in AgentAlpha and how do they work?",
+    "ground_truth": "AgentAlpha includes two main tools: 1) DocumentRetrievalTool for RAG functionality that searches vector store using semantic similarity and returns relevant document chunks with metadata, and 2) HTTPRequestTool for making external API calls with support for GET/POST/PUT/DELETE methods, JSON payload handling, and configurable timeouts. Both tools are integrated with the LangChain ReAct agent framework.",
+    "difficulty": "medium"
+  },
+  {
+    "category": "api_endpoints",
+    "question": "What API endpoints does AgentAlpha provide?",
+    "ground_truth": "AgentAlpha provides REST API endpoints: POST /chat for conversations with message and session_id, POST /upload for document upload (PDF/TXT), GET /documents to list all documents, DELETE /documents/{id} to remove documents, POST /search for semantic search, GET /status for system health, POST /clear-memory to reset conversation, and GET / for web interface.",
+    "difficulty": "medium"
+  },
+  {
+    "category": "configuration",
+    "question": "How do you configure the vector store settings in AgentAlpha?",
+    "ground_truth": "Vector store settings are configured in config.json under 'vector_store' section: db_path (default './data/chroma_db') for database location, collection_name (default 'documents'), embedding_model (default 'all-MiniLM-L6-v2'), chunk_size (default 1000) for text splitting, and chunk_overlap (default 200). Retrieval settings include max_results (default 5) and similarity_threshold (default 0.7).",
+    "difficulty": "hard"
+  },
+  {
+    "category": "evaluation", 
+    "question": "What evaluation capabilities does AgentAlpha include?",
+    "ground_truth": "AgentAlpha includes three evaluation systems: 1) evaluate.py with full RAGAS integration providing faithfulness, answer relevancy, context precision, and context recall metrics, 2) evaluate_simple.py with basic keyword-based relevance scoring and performance metrics, and 3) evaluate_mock.py for demonstration without requiring active LLM. All systems measure success rates, response times, and provide detailed result analysis.",
+    "difficulty": "medium"
+  },
+  {
+    "category": "edge_case",
+    "question": "What happens when AgentAlpha cannot find relevant documents for a query?",
+    "ground_truth": "When AgentAlpha cannot find relevant documents, the DocumentRetrievalTool returns 'No relevant documents found for this query' if no results are returned, or 'No documents found with similarity above [threshold]. Try rephrasing your query' if results exist but fall below the similarity threshold. The agent can still provide responses using its base LLM knowledge without RAG context.",
+    "difficulty": "medium"
+  },
+  {
+    "category": "performance",
+    "question": "What are the performance characteristics and limitations of AgentAlpha?",
+    "ground_truth": "AgentAlpha has a 25-second timeout for agent execution, 3 maximum iterations for ReAct reasoning, 1000 character limit for chat messages, 2000 token limit for memory buffer, and 30-second timeout for HTTP requests. It's optimized for minimal resource usage with only essential dependencies, reduced code complexity (50% less than original), and efficient ChromaDB vector operations.",
+    "difficulty": "hard"
+  },
+  {
+    "category": "troubleshooting",
+    "question": "How do you troubleshoot common AgentAlpha connection issues?",
+    "ground_truth": "Common troubleshooting steps: 1) For Ollama connection errors, verify service is running with 'ollama serve' and test with 'curl http://localhost:11434/api/tags', 2) For API key issues, check environment variables and .env file configuration, 3) For ChromaDB issues, ensure data directory permissions and check disk space, 4) For memory errors with large documents, reduce chunk_size in config.json or use smaller embedding models.",
+    "difficulty": "medium"
+  }
+]

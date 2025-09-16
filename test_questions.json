@@ -1,0 +1,22 @@
+[
+  {
+    "question": "What is AgentAlpha?",
+    "ground_truth": "AgentAlpha is a minimal RAG agent with multi-LLM support, dual memory system, and document ingestion capabilities"
+  },
+  {
+    "question": "What LLM providers does AgentAlpha support?",
+    "ground_truth": "AgentAlpha supports Ollama, OpenAI, and DeepSeek"
+  },
+  {
+    "question": "How does the memory system work?",
+    "ground_truth": "AgentAlpha uses a dual memory system with a recent message buffer and automatic summarization for long conversations"
+  },
+  {
+    "question": "What document formats can be processed?",
+    "ground_truth": "AgentAlpha can process PDF and TXT documents for RAG"
+  },
+  {
+    "question": "How do you deploy AgentAlpha?",
+    "ground_truth": "AgentAlpha can be deployed using Docker with docker-compose up command"
+  }
+]

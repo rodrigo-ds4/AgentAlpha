@@ -1,0 +1,34 @@
+[
+  {
+    "question": "What is AgentAlpha?",
+    "ground_truth": "minimal RAG agent with multi-LLM support"
+  },
+  {
+    "question": "Which LLM providers are supported?", 
+    "ground_truth": "Ollama OpenAI DeepSeek"
+  },
+  {
+    "question": "What document types can be processed?",
+    "ground_truth": "PDF TXT documents"
+  },
+  {
+    "question": "How do you deploy with Docker?",
+    "ground_truth": "docker-compose up"
+  },
+  {
+    "question": "What is the default embedding model?",
+    "ground_truth": "all-MiniLM-L6-v2"
+  },
+  {
+    "question": "What is the memory system?",
+    "ground_truth": "dual memory buffer summary"
+  },
+  {
+    "question": "How do you add documents via CLI?",
+    "ground_truth": "python cli.py add-pdf"
+  },
+  {
+    "question": "What evaluation tools are included?",
+    "ground_truth": "RAGAS evaluation system"
+  }
+]
